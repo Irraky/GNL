@@ -6,11 +6,13 @@
 /*   By: drecours <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/10 14:15:10 by drecours          #+#    #+#             */
-/*   Updated: 2017/02/10 14:48:46 by drecours         ###   ########.fr       */
+/*   Updated: 2017/02/10 15:42:33 by drecours         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "get_next_line.h"
+
 int		get_next_line(const int fd, char **line)
 {
-
+	return (ERROR);
 }

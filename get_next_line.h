@@ -6,7 +6,7 @@
 /*   By: drecours <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/10 14:14:54 by drecours          #+#    #+#             */
-/*   Updated: 2017/02/10 15:17:57 by drecours         ###   ########.fr       */
+/*   Updated: 2017/02/10 15:41:34 by drecours         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,3 +22,5 @@
 # define E_SUCCESS 1
 # define END_OF_FILE 0
 # define ERROR -1
+
+#endif
