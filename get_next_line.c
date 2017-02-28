@@ -6,32 +6,35 @@
 /*   By: drecours <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/10 14:15:10 by drecours          #+#    #+#             */
-/*   Updated: 2017/02/10 15:42:33 by drecours         ###   ########.fr       */
+/*   Updated: 2017/02/28 17:56:10 by drecours         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
+int		ft_stickin(char *buff, char *line, char *piece)
+{
+	si \n trouve return e success
+}
+
 int		get_next_line(const int fd, char **line)
 {
-	char *buff[BUFF_SIZE + 1];
-	char	*tmp;
-	int	flag;
-	
-	if (fd < 0 || !line)
+	int				ret;
+	char			*buff[BUFF_SIZE + 1];
+	static char		*piece;
+
+	ret = 1;
+	ft_bzero(*buff);
+	if (fd < 0 || !line || BUFF_SIZE <= 0)
 		return (ERROR);
-	while (flag)
+	while ((ret = read(fd, buff, BUFF_SIZE)) >= 0)
 	{
-		strcpy line -> tmp
-		ft_bzero(buff);
-		je lis fd dans le buff 
-		je fou les trucs d'erreur
-		si 0 caract dedans
+		if (ft_strlen(piece) == 0 && ret == 0)
 			return (END_OF_FILE);
-		je cherche un \n (incrementation variable i)
-		line = memalloc taille de line = i = 1
-		strcpy tmp -> line 
-			strcmp de buff jusqu au \n a la fin de line
+		if (ft_stickin(buff, line, &piece) == E_SUCCESS)
+			return (E_SUCCESS);
+		ft_bzero(*buff);
 	}
-	return (E_SUCCESS);
+	if (ret < 0)
+		return (ERROR);
 }
