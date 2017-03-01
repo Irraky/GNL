@@ -6,7 +6,7 @@
 /*   By: drecours <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/10 14:14:54 by drecours          #+#    #+#             */
-/*   Updated: 2017/02/28 18:19:55 by drecours         ###   ########.fr       */
+/*   Updated: 2017/03/01 14:12:46 by drecours         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,9 @@
 # define END_OF_FILE 0
 # define ERROR -1
 
+# define END_OF_LINE 0
+# define IN_LINE 1
+
+int		get_next_line(const int fd, char **line);
 
 #endif
