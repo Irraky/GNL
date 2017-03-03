@@ -6,7 +6,7 @@
 /*   By: drecours <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/10 14:14:54 by drecours          #+#    #+#             */
-/*   Updated: 2017/03/01 14:12:46 by drecours         ###   ########.fr       */
+/*   Updated: 2017/03/03 04:13:29 by drecours         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "libft/libft.h"
 # include <stdio.h>
 
-# define BUFF_SIZE 1
+# define BUFF_SIZE 4
 
 # define E_SUCCESS 1
 # define END_OF_FILE 0
