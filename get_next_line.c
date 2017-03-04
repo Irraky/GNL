@@ -6,7 +6,7 @@
 /*   By: drecours <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/10 14:15:10 by drecours          #+#    #+#             */
-/*   Updated: 2017/03/03 06:35:18 by drecours         ###   ########.fr       */
+/*   Updated: 2017/03/04 18:17:41 by drecours         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,18 @@ int		ft_stickin(char *buff, char **line, char **piece, int fd)
 	lenght = ft_taille(buff, 0, '\n');
 	if (piece[fd] && piece[fd][0] != '\0')
 	{
-		*line = ft_strdup(piece[fd]);
-		ft_bzero(piece[fd], ft_strlen(piece[fd]));
+		*line = ft_strsub(piece[fd], 0, ft_taille(piece[fd] + 1, 0, '\n'));
+		piece[fd] = ft_strsub(piece[fd], ft_taille(piece[fd], 0, '\n') - 1, strlen(piece[fd]) - ft_taille(piece[fd], 0, '\n'));
+		if (piece[fd][0] == '\n')
+			return (END_OF_LINE);
 	}
-	if (lenght < BUFF_SIZE && BUFF_SIZE != 1)
+	if (buff[BUFF_SIZE] == '\n' || (lenght < BUFF_SIZE && BUFF_SIZE != 1))
 	{
 		flag = 1;
-		piece[fd] = ft_strsub(buff, lenght + 1, (BUFF_SIZE - lenght));
+	//	if (buff[BUFF_SIZE] == '\n')
+	//		piece[fd] = strdup("\n");
+	//	else
+			piece[fd] = ft_strsub(buff, lenght + 1, (BUFF_SIZE - lenght));
 		buff[lenght] = '\0';
 	}
 	if (!*line)
@@ -37,6 +42,35 @@ int		ft_stickin(char *buff, char **line, char **piece, int fd)
 	if (flag == 1 || (BUFF_SIZE == 1 && buff[0] == '\n'))
 		return (END_OF_LINE);
 	return (IN_LINE);
+}
+
+int		ft_stick(char *buff, char **line, char **piece)
+{
+	char	*tmp;
+
+	write(1, "1", 1);
+	if (!(*piece))
+		*piece = strdup(buff);
+	else
+		*piece = ft_strjoin(*piece, buff);
+	write(1, "1", 1);
+	//printf("%s\n", *piece);
+	if (ft_taille(*piece, 0, '\n') == (int)strlen(*piece) && (*piece)[strlen(*piece)] != '\n')
+	{
+		if (!*line)
+			*line = strdup(*piece);
+		else
+			*line = ft_strjoin(*line, *piece);
+		free(*piece);
+		return (IN_LINE);
+	}
+	tmp = ft_strsub(*piece, 0, ft_taille(*piece, 0, '\n'));
+	if (!*line)
+		*line = strdup(tmp);
+	else
+		*line = ft_strjoin(*line, tmp);
+	*piece = ft_strsub(*piece, ft_taille(*piece, 0, '\n'), strlen(*piece) - ft_taille(*piece, 0, '\n'));
+	return (END_OF_LINE);
 }
 
 int		get_next_line(const int fd, char **line)
@@ -51,20 +85,17 @@ int		get_next_line(const int fd, char **line)
 	ft_bzero(&buff, BUFF_SIZE + 1);
 	if (fd < 0 || !line || BUFF_SIZE <= 0)
 		return (ERROR);
-	while ((ret = read(fd, buff, BUFF_SIZE)) >= 0)
+	while ((ret = read(fd, buff, BUFF_SIZE)) > 0 || piece[fd][0] != '\0')
 	{
 		//*(buff + ret) = '\0';
-		if (ret == 0 && !*line)
-		{
-			*line = ft_strsub("\0", 0, 1);
-			return (END_OF_FILE);
-		}
-		res = ft_stickin(buff, line, piece, fd);
+		res = ft_stick(buff, line, piece + fd);
 		if (res == 0)
 			return (E_SUCCESS);
 		else if (res == -1)
 			return (ERROR);
 		ft_bzero(&buff, BUFF_SIZE + 1);
 	}
+	if (ret == 0)
+		return(END_OF_FILE);
 	return (ERROR);
 }
