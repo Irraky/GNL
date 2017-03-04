@@ -12,7 +12,7 @@
 
 #include "get_next_line.h"
 
-int		ft_stickin(char *buff, char **line, char **piece, int fd)
+/*int		ft_stickin(char *buff, char **line, char **piece, int fd)
 {
 	int		lenght;
 	int		flag;
@@ -42,7 +42,7 @@ int		ft_stickin(char *buff, char **line, char **piece, int fd)
 	if (flag == 1 || (BUFF_SIZE == 1 && buff[0] == '\n'))
 		return (END_OF_LINE);
 	return (IN_LINE);
-}
+}*/
 
 int		ft_stick(char *buff, char **line, char **piece)
 {
@@ -88,7 +88,7 @@ int		get_next_line(const int fd, char **line)
 	while ((ret = read(fd, buff, BUFF_SIZE)) > 0 || piece[fd][0] != '\0')
 	{
 		//*(buff + ret) = '\0';
-		res = ft_stick(buff, line, piece + fd);
+		res = ft_stick(buff, line, &piece[fd]);
 		if (res == 0)
 			return (E_SUCCESS);
 		else if (res == -1)
