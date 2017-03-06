@@ -6,7 +6,7 @@
 /*   By: drecours <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/10 14:15:10 by drecours          #+#    #+#             */
-/*   Updated: 2017/03/06 19:13:17 by drecours         ###   ########.fr       */
+/*   Updated: 2017/03/06 19:42:45 by drecours         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,20 @@
 
 int		ft_stick(char *buff, char **line, char **piece, int ret)
 {
+	char	*tmp;
+	int		l;
+
 	if (!(*piece))
 		*piece = ft_strdup(buff);
 	else
 		*piece = ft_joinfree(*piece, buff, 1);
+	l = ft_taille(*piece, 0, '\n');
 	if (!(ft_strchr(*piece, '\n')) && ret != 0)
 		return (IN_LINE);
-	*line = ft_strsub(*piece, 0, ft_taille(*piece, 0, '\n'));
-	*piece = ft_strsub(*piece, ft_taille(*piece, 0, '\n') + 1, ft_strlen(*piece)
-			- ft_taille(*piece, 0, '\n'));
-	if (ret == 0 && !(ft_strchr(*piece, '\n')))
-		free(*line);
+	*line = ft_strsub(*piece, 0, l);
+	tmp = *piece;
+	*piece = ft_strsub(*piece, l + 1, ft_strlen(*piece) - l);
+	free(tmp);
 	return (END_OF_LINE);
 }
 
