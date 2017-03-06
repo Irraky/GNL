@@ -6,7 +6,7 @@
 /*   By: drecours <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/10 14:15:10 by drecours          #+#    #+#             */
-/*   Updated: 2017/03/06 17:07:11 by drecours         ###   ########.fr       */
+/*   Updated: 2017/03/06 19:13:17 by drecours         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ int		ft_stick(char *buff, char **line, char **piece, int ret)
 		*piece = ft_strdup(buff);
 	else
 		*piece = ft_joinfree(*piece, buff, 1);
-	if (!(ft_strchr(*piece,'\n')) && ret != 0)
+	if (!(ft_strchr(*piece, '\n')) && ret != 0)
 		return (IN_LINE);
 	*line = ft_strsub(*piece, 0, ft_taille(*piece, 0, '\n'));
-	*piece = ft_strsub(*piece, ft_taille(*piece, 0, '\n') + 1, strlen(*piece) 
+	*piece = ft_strsub(*piece, ft_taille(*piece, 0, '\n') + 1, ft_strlen(*piece)
 			- ft_taille(*piece, 0, '\n'));
 	if (ret == 0 && !(ft_strchr(*piece, '\n')))
 		free(*line);
@@ -42,11 +42,11 @@ int		get_next_line(const int fd, char **line)
 		return (ERROR);
 	while ((ret = read(fd, buff, BUFF_SIZE)) >= 0)
 	{
-		res = ft_stick(buff, line, &piece[fd], ret);
-		if (res == 0 && piece[fd][0] != '\0')
-			return (E_SUCCESS);
-		if (ret == 0)
+		if (ret == 0 && !piece[fd][0])
 			return (END_OF_FILE);
+		res = ft_stick(buff, line, &piece[fd], ret);
+		if (res == 0)
+			return (E_SUCCESS);
 		if (res == -1)
 			return (ERROR);
 		ft_bzero(&buff, BUFF_SIZE + 1);
